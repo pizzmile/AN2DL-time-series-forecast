@@ -1,0 +1,40 @@
+# Model ------------------------------
+name: Model00
+compile_params:
+  optimizer: !optimizer
+    type: Adam
+    params:
+      learning_rate: !float 1e-4
+  loss: !loss
+    type: CategoricalCrossentropy
+    params:
+  metrics:
+    - accuracy
+fit_params:
+  epochs: 200
+  callbacks:
+# Architecture -----------------------
+# Input layer
+input_layer: !layer
+  type: Input
+  params:
+    shape: !tuple [256, 256, 3 ]
+    name: Input
+# Output layer
+output_layer: !layer
+  type: Dense
+  params:
+    units: 14
+    activation: softmax
+    name: Output
+# Hidden layer
+hidden_layers:
+  - !sequential
+    - !layer
+      type: Dense
+      params:
+        units: 16
+        kernel_initializer: !initializer
+          type: 'GlorotUniform'
+          params:
+            seed: 42

@@ -1,0 +1,9 @@
+dirs:
+  data:
+    root: data
+  models:
+    root: &modelsRoot models
+    settings: !joinPath [*modelsRoot, settings]
+    logs: !joinPath [*modelsRoot, logs]
+    images: !joinPath [*modelsRoot, img]
+    tests: !joinPath [*modelsRoot, tests]
