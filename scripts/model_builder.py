@@ -3,7 +3,8 @@ import pprint
 import sys
 import tensorflow as tf
 import yaml
-from scripts import to_float, to_tuple, build_layer, build_initializer, build_sequential, build_loss, build_optimizer
+from scripts import to_float, to_tuple
+from scripts import build_layer, build_initializer, build_sequential, build_loss, build_optimizer, build_network
 import logging
 
 
@@ -21,6 +22,7 @@ def dummy_constructor(loader, node):
 logger = logging.getLogger(__name__)
 
 # Setup yaml constructors
+yaml.add_constructor('!network', build_network)
 yaml.add_constructor('!layer', build_layer)
 yaml.add_constructor('!initializer', build_initializer)
 yaml.add_constructor('!sequential', build_sequential)
@@ -52,7 +54,13 @@ class ModelConfig:
         self.__hidden_layers = hidden_layers
 
     @staticmethod
-    def load_config(filepath: str):
+    def load_config(filepath: str) -> object:
+        """
+        Create a ModelConfig object from a configuration .yaml file
+        :param filepath: filepath of a .yaml file
+        :return: configuration object
+        :rtype: ModelConfig
+        """
         with open(filepath, 'r') as config_file:
             try:
                 config = yaml.load(config_file, Loader=yaml.FullLoader)
@@ -81,7 +89,13 @@ class ModelConfig:
         return self.__fit_params
 
 
-def build_model(config: ModelConfig):
+def build_model(config: ModelConfig) -> tf.keras.Model:
+    """
+    Build a model given its configuration
+    :param config: model configuration in ModelConfig form
+    :return: network model
+    :rtype: tf.keras.Model
+    """
     input_layer = config.get_input_layer()
     output_layer = config.get_output_layer()
     hidden_layers = config.get_hidden_layers()

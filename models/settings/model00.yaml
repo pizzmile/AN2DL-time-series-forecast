@@ -29,6 +29,11 @@ output_layer: !layer
     name: Output
 # Hidden layer
 hidden_layers:
+  - !network
+    type: VGG16
+    params:
+      locked_layers: 14
+      initialize: imagenet
   - !sequential
     - !layer
       type: Dense
