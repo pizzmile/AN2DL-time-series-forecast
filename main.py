@@ -44,18 +44,19 @@ if __name__ == '__main__':
     create_directory_tree([config["dirs"]["data"][k] for k in config["dirs"]["data"].keys()])
     create_directory_tree([config["dirs"]["models"][k] for k in config["dirs"]["models"].keys()])
 
-    # %%
-    # Load data
-    dataset_filename = os.path.join(config["dirs"]["data"]["root"], "dataset.csv")
-    dataset = pd.read_csv(dataset_filename)
-    # Preprocess data
-    test_size = 0.1
-
-    # %%
-    # Load model
+    # Load model configuration
     model_filename = os.path.join(config["dirs"]["models"]["settings"], 'model00.yaml')
     model_config = ModelConfig.load_config(model_filename)
-    model = build_model(model_config)
+
+    # %%
+    # Preprocess data
+    dataset_filename = os.path.join(config["dirs"]["data"]["root"], "dataset.csv")
+    dataset = pd.read_csv(dataset_filename)
+    X_train, y_train, X_test, y_test = model_config.preprocess_data(dataset, dataset.columns)
+
+    # %%
+    # Build model
+    model = model_config.build_model()
 
     # %%
     # Train model

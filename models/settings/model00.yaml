@@ -1,3 +1,9 @@
+# Dataset -------------------------------
+dataset_params:
+  test_size: 0.1
+  window: 200
+  stride: 10
+  telescope: 10
 # Model ------------------------------
 name: Model00
 compile_params:
@@ -14,20 +20,17 @@ fit_params:
   epochs: 200
   callbacks:
 # Architecture -----------------------
-# Input layer
 input_layer: !layer
   type: Input
   params:
     shape: !tuple [256, 256, 3 ]
     name: Input
-# Output layer
 output_layer: !layer
   type: Dense
   params:
     units: 14
     activation: softmax
     name: Output
-# Hidden layer
 hidden_layers:
   - !network
     type: VGG16
