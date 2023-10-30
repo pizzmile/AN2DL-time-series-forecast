@@ -1,4 +1,4 @@
-# AN2DL-homework2
+# AN2DL - Project 2
 
 ## Directory tree
 - `data` - *Holds the dataset to train and test models*
