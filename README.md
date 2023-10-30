@@ -1,4 +1,7 @@
 # AN2DL - Project 2
+The aim of this project was to develop a regression model for time series data through the use of neural networks such as RNNs and LSTMs. The project was organized as a competitive Kaggle challenge among students from POLIMI, and as a result, the final model is not available in this repository.
+
+Contained within this repository is a Python-based framework designed to streamline deep learning workflows. It allows for the automatic loading, training, and testing of neural networks through YAML configuration files.
 
 ## Directory tree
 - `data` - *Holds the dataset to train and test models*
